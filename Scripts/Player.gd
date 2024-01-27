@@ -14,7 +14,7 @@ var mouse_sens : float = 0.001
 var mouse_pos : Vector2
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var camera : Camera3D
+@onready var camera := $CamOrigin/SpringArm3D/Camera3D
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -22,11 +22,20 @@ func _enter_tree():
 		#print(cam_rig)		#cam_rig.process_mode = Node.PROCESS_MODE_INHERIT
 func _ready():
 	GameManager.set_player(self)
-	camera = GameManager.camera
+	#camera = GameManager.camera
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		var mousePos = event.position;
+		var rayOrigin = camera.project_ray_origin(mousePos)
+		var rayNormal = camera.project_ray_normal(mousePos)
+		print("------")
+		print(position)
+		print(rayOrigin)
+		print(rayNormal)
+		var v = position - rayOrigin
+		print(v.normalized())
 	elif event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -61,8 +70,9 @@ func _physics_process(delta):
 		move_and_slide()
 
 
-func _process(delta):
-	if camera != null:
-		mouse_pos = get_viewport().get_mouse_motion()
-		print(mouse_pos)
+#func _process(delta):
+	#if camera != null:
+		#mouse_pos = get_viewport().get_mouse_motion()
+		#print(mouse_pos)
+		
 		

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy5u051dbt20e"]
+
+[ext_resource type="Script" path="res://Scripts/Hand.gd" id="1_rwvob"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6xky1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_054il"]
+
+[node name="Hand" type="CharacterBody3D"]
+script = ExtResource("1_rwvob")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.566976, 0, 0, 0, 0.566976, 0, 0, 0, 0.566976, 1.2, 0, 0)
+shape = SubResource("BoxShape3D_6xky1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.272594, 1.2, 0, 0)
+mesh = SubResource("BoxMesh_054il")

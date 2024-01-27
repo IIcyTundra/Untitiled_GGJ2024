@@ -1,11 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://6so36btsxqpj"]
+[gd_scene load_steps=15 format=3 uid="uid://6so36btsxqpj"]
 
-[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/Player.tscn" id="1_cb72q"]
+[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/player.tscn" id="1_cb72q"]
 [ext_resource type="Script" path="res://Scripts/MP_Test.gd" id="1_mi6e2"]
 [ext_resource type="Texture2D" uid="uid://blvy2816o3266" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ybqyw"]
 [ext_resource type="Texture2D" uid="uid://cy7rr785giyq4" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="3_rsy5k"]
-[ext_resource type="Script" path="res://Scripts/cam_rig.gd" id="5_1dibl"]
-[ext_resource type="Shader" path="res://Resources/forground_shader.gdshader" id="5_k7sw2"]
 [ext_resource type="Script" path="res://Scenes/CameraControls.gd" id="7_su0an"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqv6m"]
@@ -40,13 +38,6 @@ uv1_scale = Vector3(10, 10, 10)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_llkuj"]
 albedo_texture = ExtResource("3_rsy5k")
 uv1_scale = Vector3(10, 10, 10)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_am7o3"]
-shader = ExtResource("5_k7sw2")
-shader_parameter/MULTIPLIER = 0.8
-shader_parameter/SCALE = 0.4
-shader_parameter/SOFTNESS = 0.6
-shader_parameter/BASE_OPACITY = 0.9
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_60m75"]
 size = Vector3(10, 5, 10)
@@ -116,43 +107,6 @@ text = "JOIN
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
 _spawnable_scenes = PackedStringArray("res://Scenes/Player.tscn")
 spawn_path = NodePath("../..")
-
-[node name="BaseCam" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 15, 10)
-script = ExtResource("5_1dibl")
-
-[node name="BackgroundPassContainer" type="SubViewportContainer" parent="BaseCam"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="BackgroundPass" type="SubViewport" parent="BaseCam/BackgroundPassContainer"]
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="BackgroundCam" type="Camera3D" parent="BaseCam/BackgroundPassContainer/BackgroundPass"]
-cull_mask = 1047553
-
-[node name="ForegroundPassContainer" type="SubViewportContainer" parent="BaseCam"]
-material = SubResource("ShaderMaterial_am7o3")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="ForegroundPass" type="SubViewport" parent="BaseCam/ForegroundPassContainer"]
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="ForegroundCam" type="Camera3D" parent="BaseCam/ForegroundPassContainer/ForegroundPass"]
-cull_mask = 1047554
 
 [node name="PlayerCoords" type="Node3D" parent="."]
 script = ExtResource("7_su0an")

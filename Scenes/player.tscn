@@ -17,7 +17,7 @@ properties/0/replication_mode = 1
 [sub_resource type="BoxMesh" id="BoxMesh_ctnbn"]
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_h5vgk")
 
 [node name="CharacterModel" type="Node3D" parent="."]
@@ -34,6 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 0.575805, 0.817587, 0, -0.817587, 0.575805, 
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CamPoint"]
 transform = Transform3D(1, 0, 0, 0, 0.97826, 0.207382, 0, -0.207382, 0.97826, 0, 0, 0)
+visible = false
 mesh = SubResource("PrismMesh_uu7j7")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -45,3 +46,12 @@ replication_config = SubResource("SceneReplicationConfig_c7j45")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.82843)
 mesh = SubResource("BoxMesh_ctnbn")
 skeleton = NodePath("../..")
+
+[node name="CamOrigin" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
+transform = Transform3D(1, 0, 0, 0, 0.750111, 0.661312, 0, -0.661312, 0.750111, 0, 0, 0)
+spring_length = 12.0
+
+[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.79547)
