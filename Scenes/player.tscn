@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://k7o1fb1ouopy"]
+[gd_scene load_steps=6 format=3 uid="uid://k7o1fb1ouopy"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_h5vgk"]
 
@@ -9,7 +9,13 @@
 [sub_resource type="PrismMesh" id="PrismMesh_uu7j7"]
 size = Vector3(0.2, 0.2, 0.2)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_c7j45"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player" type="CharacterBody3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 script = ExtResource("1_h5vgk")
 
 [node name="CharacterModel" type="Node3D" parent="."]
@@ -27,3 +33,6 @@ transform = Transform3D(1, 0, 0, 0, 0.575805, 0.817587, 0, -0.817587, 0.575805, 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CamPoint"]
 transform = Transform3D(1, 0, 0, 0, 0.97826, 0.207382, 0, -0.207382, 0.97826, 0, 0, 0)
 mesh = SubResource("PrismMesh_uu7j7")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_c7j45")
