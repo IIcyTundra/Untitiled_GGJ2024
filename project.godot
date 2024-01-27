@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Untitiled Ggj 2024"
+run/main_scene="res://Scenes/test_map.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://Scripts/game_manager.gd"
 
 [input]
 

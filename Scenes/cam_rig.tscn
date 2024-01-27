@@ -1,23 +1,47 @@
-[gd_scene format=3 uid="uid://c5qwpo651mqat"]
+[gd_scene load_steps=4 format=3 uid="uid://c5qwpo651mqat"]
+
+[ext_resource type="Script" path="res://Scripts/cam_rig.gd" id="1_nowg4"]
+[ext_resource type="Shader" path="res://Resources/forground_shader.gdshader" id="2_hl1sf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pduw"]
+shader = ExtResource("2_hl1sf")
+shader_parameter/MULTIPLIER = 0.56
+shader_parameter/SCALE = 0.5
+shader_parameter/SOFTNESS = 0.45
+shader_parameter/BASE_OPACITY = 0.6
 
 [node name="CamRig" type="Node3D"]
+script = ExtResource("1_nowg4")
 
 [node name="BaseCam" type="Camera3D" parent="."]
 
 [node name="BackgroundPassContainer" type="SubViewportContainer" parent="BaseCam"]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="BackgroundPass" type="SubViewport" parent="BaseCam/BackgroundPassContainer"]
-
-[node name="BackgroundCam" type="Camera3D" parent="BaseCam/BackgroundPassContainer/BackgroundPass"]
-
-[node name="ForegroundPassContainer2" type="SubViewportContainer" parent="BaseCam"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ForegroundPass" type="SubViewport" parent="BaseCam/ForegroundPassContainer2"]
+transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
 
-[node name="ForegroundCam" type="Camera3D" parent="BaseCam/ForegroundPassContainer2/ForegroundPass"]
+[node name="BackgroundCam" type="Camera3D" parent="BaseCam/BackgroundPassContainer/BackgroundPass"]
+cull_mask = 1047553
+
+[node name="ForegroundPassContainer" type="SubViewportContainer" parent="BaseCam"]
+material = SubResource("ShaderMaterial_6pduw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ForegroundPass" type="SubViewport" parent="BaseCam/ForegroundPassContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ForegroundCam" type="Camera3D" parent="BaseCam/ForegroundPassContainer/ForegroundPass"]
+cull_mask = 1047554
