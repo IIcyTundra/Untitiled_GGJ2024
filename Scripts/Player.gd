@@ -8,9 +8,8 @@ const JUMP_VELOCITY = 4.5
 @onready var node_3d = $Node3D
 var player_radius = 5.0
 var mouse_sens : float = 0.001
-@onready var cam_point = $CamPoint
 @onready var character_model = $CharacterModel#Change after model is imported
-#@onready var cam_rig = $CamRig
+
 var mouse_pos : Vector2
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -50,6 +49,27 @@ func _input(event: InputEvent) -> void:
 					node_3d.rotation.x = clamp(node_3d.rotation.x,deg_to_rad(-40), deg_to_rad(40))
 					node_3d.rotation.y -= event.relative.x * mouse_sens
 					#mesh_instance_3d.translate_object_local(Vector3(event.relative.x, 0, event.relative.y)) 
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN )
+	elif event.is_action_pressed("ui_cancel"):
+		print("ui_cancel")
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN :
+		var mousePos = event.position;
+		print(mousePos)
+		var rayOrigin = camera.project_ray_origin(mousePos)
+		var rayNormal = camera.project_ray_normal(mousePos)
+		var p = Plane(0, 1 , 0, position.y)
+		var point = p.intersects_ray(rayOrigin, rayOrigin + rayNormal * 2000)
+		var direction = Vector2(point.z - position.z, point.x - position.x)
+		node_3d.rotate(Vector3.UP, direction.angle() - node_3d.rotation.y - PI)
+	#if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		#if event is InputEventMouseMotion:
+			#node_3d.rotation.x -= event.relative.y * mouse_sens
+			#node_3d.rotation.x = clamp(node_3d.rotation.x,deg_to_rad(-40), deg_to_rad(40))
+			#node_3d.rotation.y -= event.relative.x * mouse_sens
+			#mesh_instance_3d.translate_object_local(Vector3(event.relative.x, 0, event.relative.y)) 
+			#print(event.position)
 func _physics_process(delta):
 	if is_multiplayer_authority():
 		# Add the gravity.
