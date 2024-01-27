@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://chfaf2qjjfsjv"]
+
+[node name="ControlsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Back"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 89.0
+offset_right = 1057.0
+offset_bottom = 193.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer2"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "Move you mouse around the screen to aim your character, and spin really fast to SLAP you neighbor out of your yard!"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 235.0
+offset_right = 1058.0
+offset_bottom = 339.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer3"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Use WASD to move your character around the screen"
