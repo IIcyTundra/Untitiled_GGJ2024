@@ -22,6 +22,7 @@ func _on_join_pressed():
 func add_player(id = 1):
 	var new_player = player.instantiate()
 	new_player.name = str(id)
+	
 	call_deferred("add_child", new_player)
 
 func exit_game(id):

@@ -7,6 +7,7 @@ extends Node3D
 @onready var foreground_cam = $ForegroundPassContainer/ForegroundPass/ForegroundCam
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameManager.set_player(self)
 	resize()
 
 func resize():
