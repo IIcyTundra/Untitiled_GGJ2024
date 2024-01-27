@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://6so36btsxqpj"]
 
-[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/player.tscn" id="1_cb72q"]
 [ext_resource type="Script" path="res://Scripts/MP_Test.gd" id="1_mi6e2"]
 [ext_resource type="Texture2D" uid="uid://blvy2816o3266" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ybqyw"]
+[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/Player.tscn" id="2_q46uv"]
 [ext_resource type="Texture2D" uid="uid://cy7rr785giyq4" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="3_rsy5k"]
 [ext_resource type="Script" path="res://Scenes/CameraControls.gd" id="7_su0an"]
 
@@ -42,9 +42,9 @@ uv1_scale = Vector3(10, 10, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_60m75"]
 size = Vector3(10, 5, 10)
 
-[node name="TestMap" type="Node3D"]
+[node name="Game" type="Node3D"]
 script = ExtResource("1_mi6e2")
-player = ExtResource("1_cb72q")
+player = ExtResource("2_q46uv")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ecert")
@@ -87,27 +87,6 @@ material_override = SubResource("StandardMaterial3D_llkuj")
 use_collision = true
 size = Vector3(1, 5, 20)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Host" type="Button" parent="CanvasLayer"]
-z_index = 1
-offset_right = 51.0
-offset_bottom = 31.0
-text = "HOST"
-
-[node name="Join" type="Button" parent="CanvasLayer"]
-z_index = 1
-offset_top = 31.0
-offset_right = 56.0
-offset_bottom = 85.0
-text = "JOIN
-
-"
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
-_spawnable_scenes = PackedStringArray("res://Scenes/Player.tscn")
-spawn_path = NodePath("../..")
-
 [node name="PlayerCoords" type="Node3D" parent="."]
 script = ExtResource("7_su0an")
 
@@ -134,6 +113,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D4"]
 shape = SubResource("BoxShape3D_60m75")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+z_index = 1
+offset_right = 100.0
+offset_bottom = 100.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+z_index = 1
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 200.0
+text = "JOIN
+
+"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
+_spawnable_scenes = PackedStringArray("res://Scenes/Player.tscn")
+spawn_path = NodePath("../..")
+spawn_limit = 4
 
 [connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://k7o1fb1ouopy"]
+[gd_scene load_steps=10 format=3 uid="uid://k7o1fb1ouopy"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_h5vgk"]
+[ext_resource type="Shader" path="res://Resources/forground_shader.gdshader" id="2_2db4y"]
+[ext_resource type="Script" path="res://Scripts/cam_rig.gd" id="2_nipk6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jx3mp"]
 
@@ -13,11 +15,29 @@ size = Vector3(0.2, 0.2, 0.2)
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("Node3D:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Node3D:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("CamOrigin:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_ctnbn"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_onunf"]
+shader = ExtResource("2_2db4y")
+shader_parameter/MULTIPLIER = 0.8
+shader_parameter/SCALE = 0.4
+shader_parameter/SOFTNESS = 0.6
+shader_parameter/BASE_OPACITY = 0.9
+
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_h5vgk")
 
 [node name="CharacterModel" type="Node3D" parent="."]
@@ -48,10 +68,46 @@ mesh = SubResource("BoxMesh_ctnbn")
 skeleton = NodePath("../..")
 
 [node name="CamOrigin" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
 transform = Transform3D(1, 0, 0, 0, 0.750111, 0.661312, 0, -0.661312, 0.750111, 0, 0, 0)
 spring_length = 12.0
+margin = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.79547)
+[node name="BaseCam" type="Camera3D" parent="CamOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -1.19209e-07, 1, -3.33786e-06, 0.389479, 11.6554)
+script = ExtResource("2_nipk6")
+
+[node name="BackgroundPassContainer" type="SubViewportContainer" parent="CamOrigin/SpringArm3D/BaseCam"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BackgroundPass" type="SubViewport" parent="CamOrigin/SpringArm3D/BaseCam/BackgroundPassContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="BackgroundCam" type="Camera3D" parent="CamOrigin/SpringArm3D/BaseCam/BackgroundPassContainer/BackgroundPass"]
+cull_mask = 1047553
+
+[node name="ForegroundPassContainer" type="SubViewportContainer" parent="CamOrigin/SpringArm3D/BaseCam"]
+material = SubResource("ShaderMaterial_onunf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ForegroundPass" type="SubViewport" parent="CamOrigin/SpringArm3D/BaseCam/ForegroundPassContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ForegroundCam" type="Camera3D" parent="CamOrigin/SpringArm3D/BaseCam/ForegroundPassContainer/ForegroundPass"]
+cull_mask = 1047554
