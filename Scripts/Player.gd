@@ -26,24 +26,27 @@ func _ready():
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN )
+	elif event.is_action_pressed("ui_cancel"):
+		print("ui_cancel")
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN :
 		var mousePos = event.position;
+		print(mousePos)
 		var rayOrigin = camera.project_ray_origin(mousePos)
 		var rayNormal = camera.project_ray_normal(mousePos)
-		print("------")
-		print(position)
-		print(rayOrigin)
-		print(rayNormal)
-		var v = position - rayOrigin
-		print(v.normalized())
-	elif event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEventMouseMotion:
-				node_3d.rotation.x -= event.relative.y * mouse_sens
-				node_3d.rotation.x = clamp(node_3d.rotation.x,deg_to_rad(-40), deg_to_rad(40))
-				node_3d.rotation.y -= event.relative.x * mouse_sens
-				#mesh_instance_3d.translate_object_local(Vector3(event.relative.x, 0, event.relative.y)) 
+		var p = Plane(0, 1 , 0, position.y)
+		var point = p.intersects_ray(rayOrigin, rayOrigin + rayNormal * 2000)
+		var direction = Vector2(point.z - position.z, point.x - position.x)
+		node_3d.rotate(Vector3.UP, direction.angle() - node_3d.rotation.y - PI)
+	#if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		#if event is InputEventMouseMotion:
+			#node_3d.rotation.x -= event.relative.y * mouse_sens
+			#node_3d.rotation.x = clamp(node_3d.rotation.x,deg_to_rad(-40), deg_to_rad(40))
+			#node_3d.rotation.y -= event.relative.x * mouse_sens
+			#mesh_instance_3d.translate_object_local(Vector3(event.relative.x, 0, event.relative.y)) 
+			#print(event.position)
 func _physics_process(delta):
 	if is_multiplayer_authority():
 		# Add the gravity.
