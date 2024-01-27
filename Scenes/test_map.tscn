@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://6so36btsxqpj"]
+[gd_scene load_steps=18 format=3 uid="uid://6so36btsxqpj"]
 
 [ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/Player.tscn" id="1_cb72q"]
+[ext_resource type="Script" path="res://Scripts/MP_Test.gd" id="1_mi6e2"]
 [ext_resource type="Texture2D" uid="uid://blvy2816o3266" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ybqyw"]
 [ext_resource type="Texture2D" uid="uid://cy7rr785giyq4" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="3_rsy5k"]
-[ext_resource type="PackedScene" uid="uid://c5qwpo651mqat" path="res://Scenes/cam_rig.tscn" id="4_pd3jn"]
+[ext_resource type="Script" path="res://Scripts/cam_rig.gd" id="5_1dibl"]
+[ext_resource type="Shader" path="res://Resources/forground_shader.gdshader" id="5_k7sw2"]
+[ext_resource type="Script" path="res://Scenes/CameraControls.gd" id="7_su0an"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqv6m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -38,19 +41,29 @@ uv1_scale = Vector3(10, 10, 10)
 albedo_texture = ExtResource("3_rsy5k")
 uv1_scale = Vector3(10, 10, 10)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_am7o3"]
+shader = ExtResource("5_k7sw2")
+shader_parameter/MULTIPLIER = 0.8
+shader_parameter/SCALE = 0.4
+shader_parameter/SOFTNESS = 0.6
+shader_parameter/BASE_OPACITY = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_60m75"]
+size = Vector3(10, 5, 10)
+
 [node name="TestMap" type="Node3D"]
+script = ExtResource("1_mi6e2")
+player = ExtResource("1_cb72q")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ecert")
-
-[node name="Player" parent="." instance=ExtResource("1_cb72q")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 2, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
 [node name="Map" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map"]
 material_override = SubResource("StandardMaterial3D_er3qw")
@@ -71,18 +84,102 @@ size = Vector3(1, 5, 20)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Map"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, 3, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_76wap")
 use_collision = true
-collision_layer = 2
-collision_mask = 2
 size = Vector3(1, 5, 20)
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Map"]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 3, 10)
+layers = 2
 material_override = SubResource("StandardMaterial3D_llkuj")
 use_collision = true
-collision_layer = 2
-collision_mask = 2
 size = Vector3(1, 5, 20)
 
-[node name="CamRig" parent="." instance=ExtResource("4_pd3jn")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+z_index = 1
+offset_right = 51.0
+offset_bottom = 31.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+z_index = 1
+offset_top = 31.0
+offset_right = 56.0
+offset_bottom = 85.0
+text = "JOIN
+
+"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
+_spawnable_scenes = PackedStringArray("res://Scenes/Player.tscn")
+spawn_path = NodePath("../..")
+
+[node name="BaseCam" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 15, 10)
+script = ExtResource("5_1dibl")
+
+[node name="BackgroundPassContainer" type="SubViewportContainer" parent="BaseCam"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BackgroundPass" type="SubViewport" parent="BaseCam/BackgroundPassContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="BackgroundCam" type="Camera3D" parent="BaseCam/BackgroundPassContainer/BackgroundPass"]
+cull_mask = 1047553
+
+[node name="ForegroundPassContainer" type="SubViewportContainer" parent="BaseCam"]
+material = SubResource("ShaderMaterial_am7o3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ForegroundPass" type="SubViewport" parent="BaseCam/ForegroundPassContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ForegroundCam" type="Camera3D" parent="BaseCam/ForegroundPassContainer/ForegroundPass"]
+cull_mask = 1047554
+
+[node name="PlayerCoords" type="Node3D" parent="."]
+script = ExtResource("7_su0an")
+
+[node name="Area3D" type="Area3D" parent="PlayerCoords"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D"]
+shape = SubResource("BoxShape3D_60m75")
+
+[node name="Area3D2" type="Area3D" parent="PlayerCoords"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D2"]
+shape = SubResource("BoxShape3D_60m75")
+
+[node name="Area3D3" type="Area3D" parent="PlayerCoords"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D3"]
+shape = SubResource("BoxShape3D_60m75")
+
+[node name="Area3D4" type="Area3D" parent="PlayerCoords"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D4"]
+shape = SubResource("BoxShape3D_60m75")
+
+[connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

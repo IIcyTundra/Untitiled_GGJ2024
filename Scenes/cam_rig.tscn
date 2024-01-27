@@ -5,10 +5,10 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6pduw"]
 shader = ExtResource("2_hl1sf")
-shader_parameter/MULTIPLIER = 0.56
-shader_parameter/SCALE = 0.5
-shader_parameter/SOFTNESS = 0.45
-shader_parameter/BASE_OPACITY = 0.6
+shader_parameter/MULTIPLIER = 0.8
+shader_parameter/SCALE = 0.4
+shader_parameter/SOFTNESS = 0.6
+shader_parameter/BASE_OPACITY = 0.9
 
 [node name="CamRig" type="Node3D"]
 script = ExtResource("1_nowg4")
@@ -21,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="BackgroundPass" type="SubViewport" parent="BaseCam/BackgroundPassContainer"]
 transparent_bg = true
@@ -37,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ForegroundPass" type="SubViewport" parent="BaseCam/ForegroundPassContainer"]
 transparent_bg = true
