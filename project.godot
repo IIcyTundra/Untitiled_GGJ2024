@@ -23,6 +23,10 @@ GameManager="*res://Scripts/game_manager.gd"
 
 project/assembly_name="Untitiled Ggj 2024"
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [input]
 
 up={

@@ -1,18 +1,32 @@
 extends CharacterBody3D
 
+signal hit_player
+signal hit_wall(push_v: Vector3)
+
 const TURN_SPEED_MAX := 100 # in radians/sec
 const TURN_SPEED_MIN := 10 # in radians/sec
 const TURN_ACC := 5 # in radians/sec
 const TURN_Thrash := 0.1 # in radians/sec
+const PUSH_HORIZONTAL_V := 15.0
+const PUSH_VERTICAL_V := 5.0
+const HIT_WALL_CD := 0.2
 
 var target_angle: float = 0.0
 var ang_speed: float = 0.0
+var hit_wall_timer = 0.0
 var direction: Vector2
 var is_clockwise = true
+var can_hit_wall = true
 var done = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+
+func _process(delta):
+	if !can_hit_wall:
+		hit_wall_timer -= delta
+		if hit_wall_timer < 0:
+			can_hit_wall = true
 
 func _physics_process(delta: float):
 	if done:
@@ -36,3 +50,31 @@ func _set_target_dir(dir):
 	done = false
 
 	
+
+
+func _on_area_3d_body_entered(body):
+	var push_v = Vector3.ONE * PUSH_HORIZONTAL_V
+	push_v.y = PUSH_VERTICAL_V
+	if body.has_method("push"):
+		print(body.name)
+	elif body.is_in_group("Wall"):
+		push_v = Vector3(-sin(rotation.y), 0, -cos(rotation.y)) * PUSH_HORIZONTAL_V
+		push_v.y = PUSH_VERTICAL_V
+		hit_wall.emit(push_v)
+		can_hit_wall = false
+		hit_wall_timer = HIT_WALL_CD
+		
+
+func _on_area_3d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	var p = area.get_parent()
+	if p.is_in_group("Hand"):
+		var material = $MeshInstance3D.get_surface_override_material(0)
+		material.albedo_color = Color(0, 1, 0)
+		$MeshInstance3D.set_surface_override_material(0, material)
+
+func _on_area_3d_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
+	var p = area.get_parent()
+	if p.is_in_group("Hand"):
+		var material = $MeshInstance3D.get_surface_override_material(0)
+		material.albedo_color = Color(1, 0, 0)
+		$MeshInstance3D.set_surface_override_material(0, material)

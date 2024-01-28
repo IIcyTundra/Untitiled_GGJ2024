@@ -18,6 +18,7 @@ func _on_host_pressed():
 	multiplayer.peer_disconnected.connect(remove_player)
 	
 	add_player(multiplayer.get_unique_id())
+	add_player(multiplayer.get_unique_id())
 	
 	upnp_setup()
 	

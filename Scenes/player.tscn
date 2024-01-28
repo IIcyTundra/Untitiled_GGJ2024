@@ -98,3 +98,5 @@ render_target_update_mode = 4
 
 [node name="ForegroundCam" type="Camera3D" parent="CamOrigin/SpringArm3D/BaseCam/ForegroundPassContainer/ForegroundPass"]
 cull_mask = 1047554
+
+[connection signal="hit_wall" from="Hand" to="." method="_on_hand_hit_wall"]

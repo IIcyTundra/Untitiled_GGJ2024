@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdl7bfejd5cee"]
+
+[ext_resource type="Script" path="res://Scripts/SoundEffectHandler.gd" id="1_8gpkv"]
+[ext_resource type="AudioStream" path="res://Audio/Music/Piano.ogg" id="2_1vlq5"]
+
+[node name="SoundEffect" type="Node3D"]
+script = ExtResource("1_8gpkv")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_1vlq5")

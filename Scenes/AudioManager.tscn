@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv3r1esoitwp4"]
+
+[ext_resource type="Script" path="res://Scripts/MusicHandler.gd" id="1_kb2o0"]
+[ext_resource type="Script" path="res://Scripts/AudioManager.gd" id="1_u2knw"]
+
+[node name="AudioManager" type="Node3D"]
+script = ExtResource("1_u2knw")
+
+[node name="Music" type="Node3D" parent="."]
+script = ExtResource("1_kb2o0")
+
+[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="Music"]
+pitch_scale = 1.14
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Music"]
