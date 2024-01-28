@@ -1,8 +1,10 @@
 extends CharacterBody3D
 
+signal health_changed(health_value)
+
 
 const SPEED = 6.0
-
+var health = 3
 const JUMP_VELOCITY = 4.5
 @onready var mesh_instance_3d = $Hand/MeshInstance3D
 var player_radius = 5.0
@@ -21,9 +23,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var hand := $Hand
 
 func _enter_tree():
-	set_multiplayer_authority(name.to_int())
+	set_multiplayer_authority(str(name).to_int())
 	
 func _ready():
+	if not is_multiplayer_authority(): return
 	GameManager.set_player(self)
 	camera.current = is_multiplayer_authority()
 	backcam.current = is_multiplayer_authority()
@@ -60,11 +63,22 @@ func _physics_process(delta):
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir = Input.get_vector("left", "right", "up", "down")
 		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		
 		if direction:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
-
 		
+		
+func _process(delta):
+	print(position)
+
+@rpc("any_peer")
+func receive_damage():
+	health -= 1
+	if health <= 0:
+		health = 3
+		position = Vector3.ZERO
+	health_changed.emit(health)

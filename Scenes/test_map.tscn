@@ -46,6 +46,8 @@ size = Vector3(10, 5, 10)
 script = ExtResource("1_mi6e2")
 player = ExtResource("2_q46uv")
 
+[node name="Node3D" type="Node3D" parent="."]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ecert")
 
@@ -114,27 +116,53 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D4"]
 shape = SubResource("BoxShape3D_60m75")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="MainMenu" type="CanvasLayer" parent="."]
 
-[node name="Host" type="Button" parent="CanvasLayer"]
+[node name="PanelContainer" type="PanelContainer" parent="MainMenu"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -88.0
+offset_right = 205.0
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Host" type="Button" parent="MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
 z_index = 1
-offset_right = 100.0
-offset_bottom = 100.0
+layout_mode = 2
 text = "HOST"
 
-[node name="Join" type="Button" parent="CanvasLayer"]
+[node name="Join" type="Button" parent="MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
 z_index = 1
-offset_top = 100.0
-offset_right = 100.0
-offset_bottom = 200.0
+layout_mode = 2
 text = "JOIN
 
 "
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="CanvasLayer"]
+[node name="Address" type="LineEdit" parent="MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Put In Address"
+alignment = 1
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="MainMenu"]
 _spawnable_scenes = PackedStringArray("res://Scenes/Player.tscn")
 spawn_path = NodePath("../..")
 spawn_limit = 4
 
-[connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="MainMenu/PanelContainer/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MainMenu/PanelContainer/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
