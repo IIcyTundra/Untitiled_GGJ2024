@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cv3r1esoitwp4"]
+[gd_scene load_steps=4 format=3 uid="uid://cv3r1esoitwp4"]
 
 [ext_resource type="Script" path="res://Scripts/MusicHandler.gd" id="1_kb2o0"]
 [ext_resource type="Script" path="res://Scripts/AudioManager.gd" id="1_u2knw"]
+[ext_resource type="AudioStream" uid="uid://d7jimklv8b3h" path="res://Audio/Music/Music_Segment_ArenaIntro_NoVrbTail.ogg" id="3_h4f24"]
 
 [node name="AudioManager" type="Node3D"]
 script = ExtResource("1_u2knw")
@@ -10,6 +11,7 @@ script = ExtResource("1_u2knw")
 script = ExtResource("1_kb2o0")
 
 [node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="Music"]
-pitch_scale = 1.14
+stream = ExtResource("3_h4f24")
+autoplay = true
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Music"]

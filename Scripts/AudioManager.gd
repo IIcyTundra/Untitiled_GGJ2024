@@ -4,7 +4,23 @@ var sound_file_base = ["res://Audio/SoundEffects/Player/Launch/",
 "res://Audio/SoundEffects/Player/Whoosh/",
 "res://Audio/SoundEffects/UI/HUD/",
 "res://Audio/SoundEffects/UI/Menu/"]
+var audioStream : AudioStreamPlayer
 
+func _ready():
+	audioStream = get_node("Music/AudioStreamPlayer1")
+	
+func _process(delta):
+	if audioStream.is_playing() == false:
+		var randTheme = randi_range(1,3)
+		var newStream
+		if randTheme == 1:
+			newStream = load("res://Audio/Music/Music_Segment_ArenaHighIntensity.ogg")
+		elif randTheme == 2:
+			newStream = load("res://Audio/Music/Music_Segment_ArenaMedIntensity.ogg")
+		else:
+			newStream = load("res://Audio/Music/Music_Segment_ArenaLowIntensity.ogg")
+		audioStream.stream = newStream
+		audioStream.play()
 
 func _random_sound_container(sound_type : String):
 	#TODO make sound_file_base a param
