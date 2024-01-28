@@ -23,6 +23,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var camera := $CamOrigin/SpringArm3D/BaseCam
 @onready var hand := $Hand
 @onready var collision_shape_3d = $CollisionShape3D
+<<<<<<< HEAD
 
 #func _enter_tree():
 	#set_multiplayer_authority(str(name).to_int())
@@ -56,6 +57,21 @@ func _input(event: InputEvent) -> void:
 			#var p = Plane(0, 1 , 0, position.y)
 			#var point = p.intersects_ray(rayOrigin, rayEnd)
 			#var direction = Vector2(point.z - position.z, point.x - position.x)
+=======
+	
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN )
+	elif event.is_action_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if event is InputEventMouseMotion:
+			var mousePos = event.position;
+			var rayOrigin = camera.project_ray_origin(mousePos)
+			var rayEnd = rayOrigin + camera.project_ray_normal(mousePos) * 2000
+			var p = Plane(0, 1 , 0, position.y)
+			var point = p.intersects_ray(rayOrigin, rayEnd)
+			var direction = Vector2(point.z - position.z, point.x - position.x)
+>>>>>>> 682d343efd8e2e6b984a9b518c59ed3f93192ebc
 			#hand._set_target_dir(direction.normalized())
 
 func _physics_process(delta):
@@ -69,9 +85,6 @@ func _physics_process(delta):
 		# Handle jump.
 		if Input.is_action_just_pressed("jump_%s" %[player_id]) and is_on_floor():
 			velocity.y = JUMP_VELOCITY
-		if Input.is_action_just_pressed("t_quit"):
-			$"../".exit_game(name.to_int())
-			get_tree().quit()
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir = Input.get_vector("left_%s" %[player_id], "right_%s" %[player_id],
@@ -84,12 +97,8 @@ func _physics_process(delta):
 		#else:
 		move_and_slide()
 		
-		
-func _process(delta):
-	#print(position)
-	pass
+	
 
-@rpc("any_peer")
 func receive_damage():
 	health -= 1
 	if health <= 0:
@@ -102,8 +111,6 @@ func push(v: Vector3):
 	
 func hit_by_hand():
 	print("hit_by_hand")
-
-
 
 func _on_hand_hit_wall(push_v):
 	push(push_v)
