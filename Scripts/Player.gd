@@ -54,6 +54,9 @@ func _physics_process(delta):
 		# Add the gravity.
 		if not is_on_floor():
 			velocity.y -= gravity * delta
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, SPEED)
 		# Handle jump.
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
@@ -68,10 +71,13 @@ func _physics_process(delta):
 		if direction:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			velocity.z = move_toward(velocity.z, 0, SPEED)
-
+		#else:
+		move_and_slide()
+		
+		
+func _process(delta):
+	#print(position)
+	pass
 
 @rpc("any_peer")
 func receive_damage():
@@ -80,3 +86,14 @@ func receive_damage():
 		health = 3
 		position = Vector3.ZERO
 	health_changed.emit(health)
+	
+func push(v: Vector3):
+	velocity += v
+	
+func hit_by_hand():
+	print("hit_by_hand")
+
+
+
+func _on_hand_hit_wall(push_v):
+	push(push_v)
