@@ -25,7 +25,7 @@ func add_player(id = 1):
 	new_player.name = str(id)
 	call_deferred("add_child", new_player)
 
-func exit_game(id):
+func exit_game(id):	
 	multiplayer.peer_disconnected.connect(del_player)
 	del_player(id)
 
