@@ -21,6 +21,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera := $CamOrigin/SpringArm3D/BaseCam
 @onready var hand := $Hand
+@onready var collision_shape_3d = $CollisionShape3D
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -70,10 +71,7 @@ func _physics_process(delta):
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
-		
-		
-func _process(delta):
-	print(position)
+
 
 @rpc("any_peer")
 func receive_damage():

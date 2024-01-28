@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://6so36btsxqpj"]
+[gd_scene load_steps=13 format=3 uid="uid://6so36btsxqpj"]
 
 [ext_resource type="Script" path="res://Scripts/MP_Test.gd" id="1_mi6e2"]
 [ext_resource type="Texture2D" uid="uid://blvy2816o3266" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ybqyw"]
 [ext_resource type="PackedScene" uid="uid://bmoddjb03cdyt" path="res://Scenes/Player.tscn" id="2_q46uv"]
 [ext_resource type="Texture2D" uid="uid://cy7rr785giyq4" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="3_rsy5k"]
-[ext_resource type="Script" path="res://Scenes/CameraControls.gd" id="7_su0an"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqv6m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,9 +38,6 @@ uv1_scale = Vector3(10, 10, 10)
 albedo_texture = ExtResource("3_rsy5k")
 uv1_scale = Vector3(10, 10, 10)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_60m75"]
-size = Vector3(10, 5, 10)
-
 [node name="Game" type="Node3D"]
 script = ExtResource("1_mi6e2")
 player = ExtResource("2_q46uv")
@@ -56,7 +52,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Map" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map"]
 material_override = SubResource("StandardMaterial3D_er3qw")
@@ -88,33 +84,6 @@ layers = 2
 material_override = SubResource("StandardMaterial3D_llkuj")
 use_collision = true
 size = Vector3(1, 5, 20)
-
-[node name="PlayerCoords" type="Node3D" parent="."]
-script = ExtResource("7_su0an")
-
-[node name="Area3D" type="Area3D" parent="PlayerCoords"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D"]
-shape = SubResource("BoxShape3D_60m75")
-
-[node name="Area3D2" type="Area3D" parent="PlayerCoords"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D2"]
-shape = SubResource("BoxShape3D_60m75")
-
-[node name="Area3D3" type="Area3D" parent="PlayerCoords"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 5)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D3"]
-shape = SubResource("BoxShape3D_60m75")
-
-[node name="Area3D4" type="Area3D" parent="PlayerCoords"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCoords/Area3D4"]
-shape = SubResource("BoxShape3D_60m75")
 
 [node name="MainMenu" type="CanvasLayer" parent="."]
 
