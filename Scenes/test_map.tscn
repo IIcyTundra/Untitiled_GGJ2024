@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/MP_Test.gd" id="1_mi6e2"]
 [ext_resource type="Texture2D" uid="uid://blvy2816o3266" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ybqyw"]
-[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/player.tscn" id="2_q46uv"]
+[ext_resource type="PackedScene" uid="uid://bmoddjb03cdyt" path="res://Scenes/player.tscn" id="2_q46uv"]
 [ext_resource type="Texture2D" uid="uid://cy7rr785giyq4" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="3_rsy5k"]
 [ext_resource type="PackedScene" uid="uid://tgsg4ta0xkrb" path="res://Models/Characters/granny_base_char.glb" id="5_djry0"]
 [ext_resource type="PackedScene" uid="uid://dgoe6dflx6x8f" path="res://Models/Characters/granny_base_SEPARATE.glb" id="6_ry2no"]
 [ext_resource type="PackedScene" uid="uid://bsyj37jshoe2j" path="res://Models/Characters/granny_gloves_SEPARATE.glb" id="7_dpg7l"]
-[ext_resource type="PackedScene" uid="uid://cv3r1esoitwp4" path="res://Scenes/AudioManager.tscn" id="8_02due"]
+[ext_resource type="PackedScene" path="res://Scenes/AudioManager.tscn" id="8_02due"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqv6m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -147,6 +147,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718755, -0.495782, 2.2033)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.615509, -0.495782, 2.20392)
 
 [node name="AudioManager" parent="." instance=ExtResource("8_02due")]
+
+[node name="Player" parent="." instance=ExtResource("2_q46uv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.33692, 1.09045, 3.25371)
+
+[node name="Player2" parent="." instance=ExtResource("2_q46uv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08366, 0.896697, 3.52996)
+player_id = 2
 
 [connection signal="pressed" from="MainMenu/PanelContainer/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="MainMenu/PanelContainer/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]

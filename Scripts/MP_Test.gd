@@ -12,15 +12,15 @@ func _on_host_pressed():
 	main_menu.hide()
 	#hud.show()
 	
-	peer.create_server(PORT)
-	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(add_player)
-	multiplayer.peer_disconnected.connect(remove_player)
-	
-	add_player(multiplayer.get_unique_id())
-	add_player(multiplayer.get_unique_id())
-	
-	upnp_setup()
+	#peer.create_server(PORT)
+	#multiplayer.multiplayer_peer = peer
+	#multiplayer.peer_connected.connect(add_player)
+	#multiplayer.peer_disconnected.connect(remove_player)
+	#
+	#add_player(multiplayer.get_unique_id())
+	#add_player(multiplayer.get_unique_id())
+	#
+	#upnp_setup()
 	
 
 func _on_join_button_pressed():
