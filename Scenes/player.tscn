@@ -1,8 +1,15 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=10 format=3 uid="uid://k7o1fb1ouopy"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_h5vgk"]
 [ext_resource type="Shader" path="res://Resources/forground_shader.gdshader" id="2_2db4y"]
 [ext_resource type="Script" path="res://Scripts/cam_rig.gd" id="2_nipk6"]
+=======
+[gd_scene load_steps=8 format=3 uid="uid://k7o1fb1ouopy"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_h5vgk"]
+[ext_resource type="PackedScene" uid="uid://dy5u051dbt20e" path="res://Scenes/hand.tscn" id="2_6oqk0"]
+>>>>>>> Stashed changes
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jx3mp"]
 
@@ -62,9 +69,10 @@ mesh = SubResource("PrismMesh_uu7j7")
 replication_config = SubResource("SceneReplicationConfig_c7j45")
 
 [node name="Node3D" type="Node3D" parent="."]
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.82843)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 mesh = SubResource("BoxMesh_ctnbn")
 skeleton = NodePath("../..")
 
@@ -74,6 +82,7 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 [node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
 transform = Transform3D(1, 0, 0, 0, 0.750111, 0.661312, 0, -0.661312, 0.750111, 0, 0, 0)
 spring_length = 12.0
+<<<<<<< Updated upstream
 margin = 0.001
 
 [node name="BaseCam" type="Camera3D" parent="CamOrigin/SpringArm3D"]
@@ -112,3 +121,10 @@ render_target_update_mode = 4
 
 [node name="ForegroundCam" type="Camera3D" parent="CamOrigin/SpringArm3D/BaseCam/ForegroundPassContainer/ForegroundPass"]
 cull_mask = 1047554
+=======
+
+[node name="Camera3D" type="Camera3D" parent="CamOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.79547)
+
+[node name="Hand" parent="." instance=ExtResource("2_6oqk0")]
+>>>>>>> Stashed changes

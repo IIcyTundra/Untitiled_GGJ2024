@@ -10,9 +10,9 @@
 script = ExtResource("1_rwvob")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.566976, 0, 0, 0, 0.566976, 0, 0, 0, 0.566976, 1.2, 0, 0)
+transform = Transform3D(0.566976, 0, 0, 0, 0.566976, 0, 0, 0, 0.566976, 0, 0, 2)
 shape = SubResource("BoxShape3D_6xky1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.272594, 1.2, 0, 0)
+transform = Transform3D(0.273, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 mesh = SubResource("BoxMesh_054il")
