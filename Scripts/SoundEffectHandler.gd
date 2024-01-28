@@ -5,7 +5,7 @@ var sound3D : AudioStream
 # Called when the node enters the scene tree for the first time.
 func _set_sound(path : String):
 	sound3D = load(path)
-	soundplayer3D.stream = sound3D
+	soundplayer3D.set_stream(sound3D)
 	
 	var randPitch : float = randf_range(-.25,.25) + 1.0
 	soundplayer3D.set_pitch_scale(randPitch)
