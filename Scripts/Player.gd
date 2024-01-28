@@ -9,22 +9,19 @@ const JUMP_VELOCITY = 4.5
 var player_radius = 5.0
 @export var mouse_sens : float = 0.001
 @onready var character_model = $CharacterModel#Change after model is imported
-<<<<<<< Updated upstream
+
 @onready var spring_arm_3d = $CamOrigin/SpringArm3D
 var mouse_pos : Vector2
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-@onready var camera := $CamOrigin/SpringArm3D/BaseCam
+
 @onready var backcam := $CamOrigin/SpringArm3D/BaseCam/BackgroundPassContainer/BackgroundPass/BackgroundCam
 @onready var forecam := $CamOrigin/SpringArm3D/BaseCam/ForegroundPassContainer/ForegroundPass/ForegroundCam
-=======
 @onready var cam_rig = $CamRig
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 @onready var camera := $CamOrigin/SpringArm3D/Camera3D
 @onready var hand := $Hand
 
->>>>>>> Stashed changes
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	
@@ -47,29 +44,18 @@ func _input(event: InputEvent) -> void:
 		#hand._set_target_dir(direction.normalized())
 	elif event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-<<<<<<< Updated upstream
-		
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN :
+
+	if event is InputEventMouseMotion:
+	#if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN :
 		if is_multiplayer_authority():
 			var mousePos = event.position;
 			var rayOrigin = camera.project_ray_origin(mousePos)
-			var rayNormal = camera.project_ray_normal(mousePos)
+			var rayEnd = rayOrigin + camera.project_ray_normal(mousePos) * 2000
 			var p = Plane(0, 1 , 0, position.y)
-			var point = p.intersects_ray(rayOrigin, rayOrigin + rayNormal * 2000)
+			var point = p.intersects_ray(rayOrigin, rayEnd)
 			var direction = Vector2(point.z - position.z, point.x - position.x)
-			node_3d.rotate(Vector3.UP, direction.angle() - node_3d.rotation.y - PI)
-=======
-	if event is InputEventMouseMotion:
-	#if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CONFINED_HIDDEN :
-		var mousePos = event.position;
-		var rayOrigin = camera.project_ray_origin(mousePos)
-		var rayEnd = rayOrigin + camera.project_ray_normal(mousePos) * 2000
-		var p = Plane(0, 1 , 0, position.y)
-		var point = p.intersects_ray(rayOrigin, rayEnd)
-		var direction = Vector2(point.z - position.z, point.x - position.x)
-		hand._set_target_dir(direction.normalized())
+			hand._set_target_dir(direction.normalized())
 
->>>>>>> Stashed changes
 func _physics_process(delta):
 	if is_multiplayer_authority():
 		# Add the gravity.
