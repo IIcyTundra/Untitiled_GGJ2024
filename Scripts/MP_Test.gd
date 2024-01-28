@@ -27,7 +27,7 @@ func _on_join_button_pressed():
 	main_menu.hide()
 	#hud.show()
 	
-	peer.create_client(address_entry.text, PORT)
+	#peer.create_client(address_entry.text, PORT)
 	multiplayer.multiplayer_peer = peer
 
 func add_player(peer_id):
