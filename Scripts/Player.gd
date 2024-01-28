@@ -14,6 +14,7 @@ var mouse_pos : Vector2
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+@onready var model_animation = $AnchorPoint/granny_base_char/Armature/Skeleton3D/AnimationPlayer
 @onready var anchor_point = $AnchorPoint
 @onready var backcam := $CamOrigin/SpringArm3D/BaseCam/BackgroundPassContainer/BackgroundPass/BackgroundCam
 @onready var forecam := $CamOrigin/SpringArm3D/BaseCam/ForegroundPassContainer/ForegroundPass/ForegroundCam
@@ -27,6 +28,13 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+func _process(delta):
+	if !model_animation.is_playing():
+		if Input.is_action_just_pressed("Attack right"):
+			model_animation.play("Swing_right")
+		if Input.is_action_just_pressed("Attack left"):
+			model_animation.play("Swing_left")
+
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -38,9 +46,6 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	if Input.is_action_just_pressed("t_quit"):
-		$"../".exit_game(name.to_int())
-		get_tree().quit()
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("left", "right", "up", "down")
@@ -51,7 +56,8 @@ func _physics_process(delta):
 		velocity.z = direction.z * SPEED
 		
 		anchor_point.look_at(direction + position)
-		
+	
+	
 	move_and_slide()
 		
 		
