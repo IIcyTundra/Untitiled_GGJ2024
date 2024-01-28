@@ -1,12 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://6so36btsxqpj"]
+[gd_scene load_steps=12 format=3 uid="uid://6so36btsxqpj"]
 
-[ext_resource type="Script" path="res://Scripts/MP_Test.gd" id="1_mi6e2"]
 [ext_resource type="Texture2D" uid="uid://blvy2816o3266" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ybqyw"]
-[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/player.tscn" id="2_q46uv"]
 [ext_resource type="Texture2D" uid="uid://cy7rr785giyq4" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="3_rsy5k"]
-[ext_resource type="PackedScene" uid="uid://tgsg4ta0xkrb" path="res://Models/Characters/granny_base_char.glb" id="5_djry0"]
-[ext_resource type="PackedScene" uid="uid://dgoe6dflx6x8f" path="res://Models/Characters/granny_base_SEPARATE.glb" id="6_ry2no"]
-[ext_resource type="PackedScene" uid="uid://bsyj37jshoe2j" path="res://Models/Characters/granny_gloves_SEPARATE.glb" id="7_dpg7l"]
+[ext_resource type="PackedScene" uid="uid://bmoddjb03cdyt" path="res://Scenes/Player.tscn" id="5_y52jr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqv6m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -42,8 +38,6 @@ albedo_texture = ExtResource("3_rsy5k")
 uv1_scale = Vector3(10, 10, 10)
 
 [node name="Game" type="Node3D"]
-script = ExtResource("1_mi6e2")
-player = ExtResource("2_q46uv")
 
 [node name="Node3D" type="Node3D" parent="."]
 
@@ -88,62 +82,5 @@ material_override = SubResource("StandardMaterial3D_llkuj")
 use_collision = true
 size = Vector3(1, 5, 20)
 
-[node name="MainMenu" type="CanvasLayer" parent="."]
-
-[node name="PanelContainer" type="PanelContainer" parent="MainMenu"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -216.0
-offset_top = -88.0
-offset_right = 205.0
-offset_bottom = 103.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MainMenu/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="Host" type="Button" parent="MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
-z_index = 1
-layout_mode = 2
-text = "HOST"
-
-[node name="Join" type="Button" parent="MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
-z_index = 1
-layout_mode = 2
-text = "JOIN
-
-"
-
-[node name="Address" type="LineEdit" parent="MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Put In Address"
-alignment = 1
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="MainMenu"]
-_spawnable_scenes = PackedStringArray("res://Scenes/Player.tscn")
-spawn_path = NodePath("../..")
-spawn_limit = 4
-
-[node name="granny_base_char" parent="." instance=ExtResource("5_djry0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.521596, -0.495782, 2.18414)
-
-[node name="granny_base_SEPARATE" parent="." instance=ExtResource("6_ry2no")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.718755, -0.495782, 2.2033)
-
-[node name="granny_gloves_SEPARATE" parent="." instance=ExtResource("7_dpg7l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.615509, -0.495782, 2.20392)
-
-[connection signal="pressed" from="MainMenu/PanelContainer/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="MainMenu/PanelContainer/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[node name="Player" parent="." instance=ExtResource("5_y52jr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)

@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccrrclka47lqh"]
+
+[ext_resource type="PackedScene" uid="uid://tgsg4ta0xkrb" path="res://Models/Characters/granny_base_char.glb" id="1_kgf16"]
+
+[node name="granny_base_char" instance=ExtResource("1_kgf16")]
+
+[node name="Dress_low_poly1" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+
+[node name="Eyes_low_poly1" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+
+[node name="Face_low_poly1" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+
+[node name="Gloves_low_poly1" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+
+[node name="Hair_low_poly1" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+
+[node name="model3_mesh1977808981" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+
+[node name="Shoes_low_poly1" parent="Armature/Skeleton3D" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
