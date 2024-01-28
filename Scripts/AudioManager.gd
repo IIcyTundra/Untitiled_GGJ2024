@@ -10,13 +10,14 @@ func _random_sound_container(sound_type : String):
 	#TODO make sound_file_base a param
 	var randTotalCount : int = dir_sound_max(sound_file_base[1])
 	var randSelect : int = randi_range(1,randTotalCount)
-	var sound = AudioStreamOggVorbis.load_from_file(sound_file_base[1] + sound_type + str(randSelect) +".ogg")
+	var path : String = sound_file_base[1] + sound_type + str(randSelect) +".ogg"
+	
+	var soundscene = load("res://Scenes/SoundEffect.tscn")
+	var soundinstance = soundscene.instantiate()
+	add_child(soundinstance)
+	soundinstance._set_sound(path)
+	
 	#TODO make audioStream a variable
-	var audioStream = get_node("Music/AudioStreamPlayer1")
-	audioStream.set_stream(sound)
-	var randPitch : float = randf_range(-.25,.25) + 1.0
-	audioStream.set_pitch_scale(randPitch)
-	audioStream.play()
 	
 func dir_sound_max(path):
 	var dir = DirAccess.open(path)
