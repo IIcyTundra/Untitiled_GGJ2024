@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://6so36btsxqpj"]
 
-[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/Player.tscn" id="1_cb72q"]
+[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/player.tscn" id="1_cb72q"]
 [ext_resource type="Texture2D" uid="uid://blvy2816o3266" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ybqyw"]
 [ext_resource type="Texture2D" uid="uid://cy7rr785giyq4" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="3_rsy5k"]
 [ext_resource type="PackedScene" uid="uid://c5qwpo651mqat" path="res://Scenes/cam_rig.tscn" id="4_pd3jn"]
