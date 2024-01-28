@@ -56,7 +56,7 @@ func _on_area_3d_body_entered(body):
 	var push_v = Vector3.ONE * PUSH_HORIZONTAL_V
 	push_v.y = PUSH_VERTICAL_V
 	if body.has_method("push"):
-		body.push(push_v)
+		print(body.name)
 	elif body.is_in_group("Wall"):
 		push_v = Vector3(-sin(rotation.y), 0, -cos(rotation.y)) * PUSH_HORIZONTAL_V
 		push_v.y = PUSH_VERTICAL_V
@@ -66,5 +66,15 @@ func _on_area_3d_body_entered(body):
 		
 
 func _on_area_3d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	print(area.name)
-	print(area_rid)
+	var p = area.get_parent()
+	if p.is_in_group("Hand"):
+		var material = $MeshInstance3D.get_surface_override_material(0)
+		material.albedo_color = Color(0, 1, 0)
+		$MeshInstance3D.set_surface_override_material(0, material)
+
+func _on_area_3d_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
+	var p = area.get_parent()
+	if p.is_in_group("Hand"):
+		var material = $MeshInstance3D.get_surface_override_material(0)
+		material.albedo_color = Color(1, 0, 0)
+		$MeshInstance3D.set_surface_override_material(0, material)
