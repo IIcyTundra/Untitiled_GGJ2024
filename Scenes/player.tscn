@@ -1,32 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmoddjb03cdyt"]
+[gd_scene load_steps=7 format=3 uid="uid://bmoddjb03cdyt"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_h5vgk"]
 [ext_resource type="Shader" path="res://Resources/forground_shader.gdshader" id="2_2db4y"]
+[ext_resource type="PackedScene" uid="uid://ccrrclka47lqh" path="res://Models/Characters/granny_base_char.tscn" id="2_4b5e8"]
 [ext_resource type="Script" path="res://Scripts/cam_rig.gd" id="2_nipk6"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_jx3mp"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ix654"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_c7j45"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("Node3D:position")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("Node3D:rotation")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("CamOrigin:position")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath(".:rotation")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("Hand:position")
-properties/5/spawn = true
-properties/5/replication_mode = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_onunf"]
 shader = ExtResource("2_2db4y")
@@ -36,27 +15,24 @@ shader_parameter/SOFTNESS = 0.6
 shader_parameter/BASE_OPACITY = 0.9
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_h5vgk")
 mouse_sens = 1.0
 
-[node name="CharacterModel" type="Node3D" parent="."]
+[node name="AnchorPoint" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterModel"]
-mesh = SubResource("CapsuleMesh_jx3mp")
-skeleton = NodePath("")
+[node name="granny_base_char" parent="AnchorPoint" instance=ExtResource("2_4b5e8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ix654")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_c7j45")
 
 [node name="CamOrigin" type="Node3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
 transform = Transform3D(1, 0, 0, 0, 0.750111, 0.661312, 0, -0.661312, 0.750111, 0, 0, 0)
-spring_length = 12.0
+spring_length = 3.0
 margin = 0.001
 
 [node name="BaseCam" type="Camera3D" parent="CamOrigin/SpringArm3D"]

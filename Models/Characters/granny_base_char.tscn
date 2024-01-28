@@ -1,8 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccrrclka47lqh"]
+[gd_scene load_steps=4 format=3 uid="uid://ccrrclka47lqh"]
 
 [ext_resource type="PackedScene" uid="uid://tgsg4ta0xkrb" path="res://Models/Characters/granny_base_char.glb" id="1_kgf16"]
 
+[sub_resource type="Animation" id="Animation_33fsq"]
+resource_name = "Swing_right"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8upd2"]
+_data = {
+"Swing_right": SubResource("Animation_33fsq")
+}
+
 [node name="granny_base_char" instance=ExtResource("1_kgf16")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+bones/6/rotation = Quaternion(0.026475, -0.999525, 0.911475, 0.358475)
+bones/7/position = Vector3(0.000474975, 50.0005, 0.000474975)
+bones/9/rotation = Quaternion(0.026475, 0.000474975, -0.911525, 0.358475)
+bones/10/position = Vector3(0.000474975, 50.0005, 0.000474975)
 
 [node name="Dress_low_poly1" parent="Armature/Skeleton3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
@@ -14,13 +29,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
 
 [node name="Gloves_low_poly1" parent="Armature/Skeleton3D" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 5.68434e-14, 0, -5.68434e-14, 1.8, 0, 1.19209e-05, 100)
 
 [node name="Hair_low_poly1" parent="Armature/Skeleton3D" index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
 
 [node name="model3_mesh1977808981" parent="Armature/Skeleton3D" index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 5.68434e-14, 0, -5.68434e-14, 1.8, 0, 1.19209e-05, 100)
 
 [node name="Shoes_low_poly1" parent="Armature/Skeleton3D" index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 1.42109e-14, 0, -1.42109e-14, 1, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Armature/Skeleton3D" index="7"]
+libraries = {
+"": SubResource("AnimationLibrary_8upd2")
+}

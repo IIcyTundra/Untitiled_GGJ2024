@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/MP_Test.gd" id="1_mi6e2"]
 [ext_resource type="Texture2D" uid="uid://blvy2816o3266" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ybqyw"]
-[ext_resource type="PackedScene" uid="uid://k7o1fb1ouopy" path="res://Scenes/player.tscn" id="2_q46uv"]
+[ext_resource type="PackedScene" uid="uid://bmoddjb03cdyt" path="res://Scenes/Player.tscn" id="2_q46uv"]
 [ext_resource type="Texture2D" uid="uid://cy7rr785giyq4" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="3_rsy5k"]
 [ext_resource type="PackedScene" uid="uid://tgsg4ta0xkrb" path="res://Models/Characters/granny_base_char.glb" id="5_djry0"]
 [ext_resource type="PackedScene" uid="uid://dgoe6dflx6x8f" path="res://Models/Characters/granny_base_SEPARATE.glb" id="6_ry2no"]
 [ext_resource type="PackedScene" uid="uid://bsyj37jshoe2j" path="res://Models/Characters/granny_gloves_SEPARATE.glb" id="7_dpg7l"]
-[ext_resource type="PackedScene" uid="uid://cv3r1esoitwp4" path="res://Scenes/AudioManager.tscn" id="8_02due"]
+[ext_resource type="PackedScene" uid="uid://bia8yyywqlygh" path="res://Scenes/audio_manager.tscn" id="8_02due"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tqv6m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
