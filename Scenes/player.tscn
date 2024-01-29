@@ -32,7 +32,7 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CamOrigin"]
 transform = Transform3D(1, 0, 0, 0, 0.750111, 0.661312, 0, -0.661312, 0.750111, 0, 0, 0)
-spring_length = 3.0
+spring_length = 10.0
 margin = 0.001
 
 [node name="BaseCam" type="Camera3D" parent="CamOrigin/SpringArm3D"]
